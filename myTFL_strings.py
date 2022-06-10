@@ -3,7 +3,7 @@
 Uses the tuples for defining strings that are formed in the definition of Kleene-star.
 Demonstrats the use of recursion.
 
-Created on Tue Jun  8 22:16:25 2022
+Created on Tue Jun  10 12:36:04 2022
 
 @author: okursun@aum.edu
 
@@ -58,17 +58,33 @@ class stfl:
             s='\u03BB'
         return s
 
-    def __repr__(self):
-        def rec_str(self):
-            if self:
-                if isinstance(self.tupl[0], stfl):
-                    return 'dot({}, {})'.format(rec_str(self.tupl[0]), str(self.tupl[1]))  #x,c
+    def associativeTupl(self):
+        if self:
+            if isinstance(self.tupl[0], stfl):
+                if self.tupl[0]:
+                    return (*self.tupl[0].associativeTupl(), self.tupl[1])
                 else:
-                    return 'dot({}, {})'.format(str(self.tupl[0]), rec_str(self.tupl[1]))
+                    return (self.tupl[1],)                    
             else:
-                return '\u03BB'
-        return rec_str(self)
+                if self.tupl[1]:
+                    return (self.tupl[0], *self.tupl[1].associativeTupl())
+                else:
+                    return (self.tupl[0],)                    
+        else:
+            return ('\u03BB')
+        
+    def __eq__(self, other):
+        return self.associativeTupl() == other.associativeTupl()
     
+    def __repr__(self):
+        if self:
+            if isinstance(self.tupl[0], stfl):
+                return 'dot({},{})'.format(repr(self.tupl[0]), repr(self.tupl[1]))
+            else:
+                return 'dot({},{})'.format(repr(self.tupl[0]), repr(self.tupl[1]))
+        else:
+            return '\u03BB'
+
     def rev(self):
         if self:
             if isinstance(self.tupl[0], stfl):
@@ -112,12 +128,13 @@ def main():
     print(y)    
     print(repr(y))
 
-    y2 = stfl.copy_from_list('cba5')
+    y2 = stfl.copy_from_list(['c','b','a',5])
     print(y2)    
     print(repr(y2))
     
-    print(str(y2) == str(y))
-    print(repr(y2) == repr(y))
+    print(y.associativeTupl())
+    print(y2.associativeTupl())
+    print(y == y2)
     
 if __name__ == '__main__':
     main()
