@@ -14,11 +14,13 @@ Created on Thu Jun 16 18:33:01 2022
 #Here is one from the Week-3 notes:
 dfa_str = '({1,2,3,4,5},{a,b},{((1,a),2),((1,b),3),((2,a),2),((2,b),4),((3,a),5),((3,b),3),((4,a),2),((4,b),4),((5,a),5),((5,b),3)},1,{2,3})'
 
-#We don't want to enter characters as 'a', 'b','c' so let us allow a,b,c by declaring them as followsas input alphabet characters, or simply use any integers 0,1,2,3... 
+#We don't want to enter characters as 'a', 'b','c' in the string, 
+#so let us allow a,b,c by declaring them as followsas input alphabet characters 
 a='a'
 b='b'
 c='c'
-#or simply use integers 0,1,2,3... as the alphabet symbols, which is more flexible, 26 may represent Z of English alphabet for example
+#or simply use integers 0,1,2,3... as the alphabet symbols, which is more flexible, 
+#for example integers 1-26 may denote English alphabet symbols a-z.
 
 class MyException(Exception):
     pass
@@ -56,5 +58,6 @@ try:
         given_pairs.add((cur_state, ch))
     assert(all_pairs == given_pairs)
 except AssertionError:
-    print('Transitions function part of the string does not represent a valid total function')
+    raise MyException('Transitions function part of the string does not represent a valid total function')
 
+print('A valid string... but also make sure you test if this DFA accepts the intended language before submitting it on Blackboard')
