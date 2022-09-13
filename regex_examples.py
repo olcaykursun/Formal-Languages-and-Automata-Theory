@@ -25,15 +25,13 @@ a
 cccbbbbbba
 aaaab'''
 
-pattern = re.compile(r'^([abc]{3,3})*aaa$', re.MULTILINE)   
+pattern = re.compile(r'^([abc]{3})*aaa$', re.MULTILINE)   
 #alphabet of {a,b,c} and it ends with aaa and the length is a multiple of 3
 
 #let us check if only the member strings are matched with the expression
 matches = set([x.group(0) for x in pattern.finditer(members+'\n'+nonmembers)])
 print(matches == set(members.split('\n')))
 print(matches)
-
-
 
 import re
 
@@ -53,15 +51,13 @@ a
 cccbbbbbba
 aaaab'''
 
-pattern = re.compile(r'^([abc]{3,3})(([abc]{3,3})*\1)?$', re.MULTILINE)   
+pattern = re.compile(r'^([abc]{3})(([abc]{3})*\1)?$', re.MULTILINE)   
 #alphabet of {ab,c} and it ends with the same 3-symbols it starts with and the length is a multiple of 3
 
 #let us check if only the member strings are matched with the expression
 matches = set([x.group(0) for x in pattern.finditer(members+'\n'+nonmembers)])
 print(matches == set(members.split('\n')))
 print(matches)
-
-
 
 import re
 
@@ -84,7 +80,7 @@ a
 cccbbbbbba
 aaaab'''
 
-pattern = re.compile(r'^(\w\w\w)(([\w\w\w]{3,3})*\1)?$', re.MULTILINE)   
+pattern = re.compile(r'^(\w{3})((\w{3})*\1)?$', re.MULTILINE)   
 #alphabet is alphanumeric characters and it ends with the same 3-symbols it starts with and the length is a multiple of 3
 
 #let us check if only the member strings are matched with the expression
